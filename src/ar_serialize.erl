@@ -336,7 +336,7 @@ find_value(Key, List) ->
 
 query_to_json_struct({Op, Expr1, Expr2}) ->
 	{struct,
-		[	
+		[
 			{op, atom_to_list(Op)},
 			{expr1, query_to_json_struct(Expr1)},
 			{expr2, query_to_json_struct(Expr2)}

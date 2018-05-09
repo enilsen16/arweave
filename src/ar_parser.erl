@@ -39,7 +39,7 @@ print({mul,E1,E2}) ->
 %     (in fact, the longers such expression)
 %   - whatever of the string is left
 %
-% for example, parse("(-55*eeee)+1111)") is             
+% for example, parse("(-55*eeee)+1111)") is
 %   {{mul,{num,-55},{var,eeee}} , "+1111)"}
 
 
@@ -92,9 +92,9 @@ is_alpha(Ch) ->
 % elements have property P. Used in parsing integers
 % and variables
 
--spec get_while(fun((T) -> boolean()),[T]) -> {[T],[T]}.    
-%-spec get_while(fun((T) -> boolean()),[T]) -> [T].    
-			 
+-spec get_while(fun((T) -> boolean()),[T]) -> {[T],[T]}.
+%-spec get_while(fun((T) -> boolean()),[T]) -> [T].
+
 get_while(P,[Ch|Rest]) ->
     case P(Ch) of
 	true ->
@@ -131,4 +131,3 @@ eval({'or',E1,E2}) ->
             sets:from_list(eval(E2))
         )
     ).
-	     

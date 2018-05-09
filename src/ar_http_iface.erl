@@ -164,7 +164,7 @@ handle('POST', [<<"block">>], Req) ->
 				case ar_storage:read_encrypted_block(RecallHash) of
 					unavailable ->
 						unavailable;
-					EncryptedRecall -> 
+					EncryptedRecall ->
 						FullBlock = ar_block:decrypt_full_block(B, EncryptedRecall, Key),
 						Recall = FullBlock#block {txs = [ T#tx.id || T <- FullBlock#block.txs] },
 						ar_storage:write_block(Recall),
@@ -373,10 +373,10 @@ handle('GET', [<<"block">>, <<"hash">>, Hash], _Req) ->
 	%ar:d({resp_block_hash, Hash}),
 	%ar:report_console([{resp_getting_block_by_hash, Hash}, {path, elli_request:path(Req)}]),
 	CurrentBlock = ar_node:get_current_block(whereis(http_entrypoint_node)),
-	case ((ar_util:decode(Hash) == 
+	case ((ar_util:decode(Hash) ==
 		ar_node:find_recall_hash(CurrentBlock, CurrentBlock#block.hash_list)) and (CurrentBlock#block.height > 10))
 	of
-		true -> 
+		true ->
 			return_block(unavailable);
 		false ->
 			case CurrentBlock of
@@ -400,10 +400,10 @@ handle('GET', [<<"block">>, <<"hash">>, Hash, <<"all">>], _Req) ->
 	ar:d({resp_block_hash, Hash}),
 	%ar:report_console([{resp_getting_block_by_hash, Hash}, {path, elli_request:path(Req)}]),
 	CurrentBlock = ar_node:get_current_block(whereis(http_entrypoint_node)),
-	case ((ar_util:decode(Hash) == 
+	case ((ar_util:decode(Hash) ==
 		ar_node:find_recall_hash(CurrentBlock, CurrentBlock#block.hash_list)) and (CurrentBlock#block.height > 10))
 	of
-		true -> 
+		true ->
 			return_block(unavailable);
 		false ->
 			case CurrentBlock of
@@ -431,7 +431,7 @@ handle('GET', [<<"block">>, <<"height">>, Height], _Req) ->
 		whereis(http_entrypoint_node),
 		list_to_integer(binary_to_list(Height))
 		),
-	case (Block#block.hash == 
+	case (Block#block.hash ==
 		ar_node:find_recall_hash(CurrentBlock, CurrentBlock#block.hash_list) )
 	of
 		true -> return_block(unavailable);
